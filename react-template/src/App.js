@@ -1,5 +1,5 @@
+import { useEffect, useRef } from 'react';
 import './App.css';
-import Background from './Components/particlesPackageBG/bgAnimation';
 
 const skills = [
   {
@@ -8,19 +8,19 @@ const skills = [
   },
   {
     title: 'Machine Learning',
-    tags: ['CatBoost', 'LightGBM', 'XGBoost', 'Random Forest', 'Stacked Ensembles', 'Walk-Forward Validation', 'Scikit-learn'],
+    tags: ['CatBoost', 'LightGBM', 'XGBoost', 'Random Forest', 'Stacked Ensembles', 'Walk-Forward Validation'],
   },
   {
     title: 'Backend',
-    tags: ['Python', 'Flask', 'FastAPI', 'Node.js', 'TypeScript', 'REST APIs', 'Supabase', 'PostgreSQL', 'SQL'],
+    tags: ['Python', 'Flask', 'FastAPI', 'Node.js', 'TypeScript', 'REST APIs', 'Supabase', 'PostgreSQL'],
   },
   {
     title: 'Frontend',
-    tags: ['SvelteKit', 'Svelte', 'React', 'Next.js', 'TypeScript', 'JavaScript'],
+    tags: ['SvelteKit', 'React', 'Next.js', 'TypeScript', 'JavaScript'],
   },
   {
     title: 'Cloud / Infra',
-    tags: ['AWS EKS/ECS/Lambda', 'AWS GovCloud', 'Terraform', 'Docker', 'Kubernetes', 'Railway', 'Cloudflare', 'CI/CD', 'RDS', 'S3', 'IAM/KMS'],
+    tags: ['AWS (EKS/ECS/Lambda/RDS/S3/IAM/KMS)', 'AWS GovCloud', 'Terraform', 'Docker', 'Kubernetes', 'Railway', 'Cloudflare'],
   },
 ];
 
@@ -29,15 +29,15 @@ const projects = [
     name: 'SharpAI',
     url: 'https://sharpai.bet',
     role: 'Founder & Lead Engineer',
-    featured: true,
-    desc: 'AI-powered sports analytics platform built around Expected Value (EV) — identifying mathematically mispriced odds to generate consistent long-term edge.',
+    date: '2026 – Present',
+    desc: 'AI sports analytics platform that finds mathematically mispriced odds for consistent long-term edge.',
     highlights: [
       'Founded after consistently beating the market (+EV) across 22+ sportsbooks',
-      'NFL winner model: +30% ROI across multi-year walk-forward validation with actual closing line odds',
+      'NFL winner model: +30% ROI, multi-year walk-forward, actual closing line odds',
       'ML stack: CatBoost, LightGBM, XGBoost, Random Forest, stacked ensembles',
-      'Integrated MCP servers to orchestrate external sports-data tools into LLM workflow',
-      'Built RAG-powered chat over pgvector for natural-language queries on picks & stats',
-      'Multi-sport +EV finder with real-time devigging across ~60 sportsbooks',
+      'MCP servers orchestrating external sports-data tools into LLM workflow',
+      'RAG chat over pgvector for natural-language queries on picks & stats',
+      'Real-time devigging EV finder across ~60 sportsbooks',
     ],
     tech: ['Python', 'SvelteKit', 'Supabase', 'Railway', 'CatBoost', 'LangChain', 'pgvector', 'MCP', 'TypeScript'],
   },
@@ -45,13 +45,13 @@ const projects = [
     name: 'Amigo.Study',
     url: 'https://amigo.study',
     role: 'Full Stack Developer / AI Engineer',
-    featured: false,
-    desc: 'AI-powered student study platform used at Cornell, UC Berkeley, UCLA, Carnegie Mellon, UPenn, and USC.',
+    date: '2025 – Present',
+    desc: 'AI study platform used at Cornell, UC Berkeley, UCLA, CMU, UPenn, and USC.',
     highlights: [
-      'RAG pipeline supporting PDF, Word, Excel, and YouTube video ingestion',
-      'OAuth integration for Notion and Google Drive — personal knowledge bases into the RAG pipeline',
-      'Node.js/TypeScript backend, Svelte frontend, Supabase',
-      'Building native iOS mobile app in Swift',
+      'RAG pipeline: PDF, PPT, MP4, MP3, YouTube ingestion',
+      'OAuth: Notion + Google Drive into personal knowledge base RAG',
+      'Used at 6+ top universities across the US',
+      'Building native iOS app in Swift',
     ],
     tech: ['Node.js', 'TypeScript', 'Svelte', 'Supabase', 'RAG', 'LLM APIs', 'Swift', 'OAuth'],
   },
@@ -63,9 +63,9 @@ const experience = [
     role: 'Founder & Lead Engineer',
     date: '2026 – Present',
     bullets: [
-      'Building and shipping a customer-facing AI/ML betting platform end-to-end as sole founder',
+      'Building and shipping AI/ML betting platform end-to-end as sole founder',
       'Python ML service on Railway, SvelteKit/TypeScript frontend, Supabase backend',
-      'Engineered real-time data pipeline with independent worker loops and token-bucket rate limiting',
+      'Real-time data pipeline with independent worker loops and token-bucket rate limiting',
     ],
   },
   {
@@ -73,9 +73,9 @@ const experience = [
     role: 'Full Stack Developer / AI Engineer',
     date: '2025 – Present',
     bullets: [
-      'Architected AI-powered study app with Node.js/TypeScript backend and Svelte frontend',
-      'Implemented RAG system with multi-format document processing and YouTube ingestion',
-      'Integrated OAuth for Notion and Google Drive knowledge base ingestion',
+      'Architected AI study app with Node.js/TypeScript backend and Svelte frontend',
+      'RAG system with multi-format document processing and YouTube ingestion',
+      'OAuth integration for Notion and Google Drive knowledge base ingestion',
     ],
   },
   {
@@ -83,10 +83,8 @@ const experience = [
     role: 'Senior Cloud/DevOps Engineer — IRS',
     date: '2025 – Present',
     bullets: [
-      'Lead AWS + GCP cloud infrastructure using Terraform IaC with federal security compliance',
-      'Multi-environment infrastructure (Dev/Stage/Prod) with Terraform workspaces and reusable modules',
-      'Advanced security controls: KMS, IAM, zero-trust, encryption at rest/in transit',
-      'EKS/ECS containerization, CI/CD pipelines, cloud cost optimization',
+      'AWS + GCP cloud infrastructure using Terraform IaC with federal compliance',
+      'EKS/ECS containerization, zero-trust, KMS/IAM, encryption at rest/in transit',
       'Mentor junior engineers in Terraform, Git workflows, and DevOps automation',
     ],
   },
@@ -95,9 +93,8 @@ const experience = [
     role: 'Cloud Engineer',
     date: '2024 – 2025',
     bullets: [
-      'Terraform workspaces for isolated multi-environment infrastructure',
-      'Modular Terraform modules to standardize resource creation across teams',
-      'Kinesis, EBS, and S3 configuration with performance and cost optimization',
+      'Multi-env Terraform workspaces, modular modules for standardized resource creation',
+      'Kinesis, EBS, S3 configuration with performance and cost optimization',
     ],
   },
   {
@@ -105,29 +102,55 @@ const experience = [
     role: 'Full Stack Developer',
     date: '2023 – 2024',
     bullets: [
-      'Next.js front-end with reusable component architecture, Figma to code',
-      'Django ORM data models and database schemas',
+      'Next.js, Django, TypeScript, PostgreSQL — reusable component architecture',
     ],
   },
 ];
 
 const education = [
-  { school: 'UC Santa Cruz', degree: 'B.S. Technology Information Management', date: 'Jun 2020' },
-  { school: 'App Academy', degree: '1,000-hr Full Stack Intensive — <3% acceptance rate', date: 'Jul 2023' },
-  { school: 'Las Positas College', degree: 'A.S. Computer Science', date: 'Dec 2017' },
-  { school: 'Akamai Partner Program', degree: 'Web App & API Protection Certification', date: 'May 2024' },
+  { school: 'UC Santa Cruz', degree: 'B.S. Technology Information Management', date: '2020' },
+  { school: 'App Academy', degree: '1,000-hr Full Stack — <3% acceptance', date: '2023' },
+  { school: 'Las Positas College', degree: 'A.S. Computer Science', date: '2017' },
+  { school: 'Akamai', degree: 'Web App & API Protection Cert', date: '2024' },
 ];
 
-export default function App() {
-  return (
-    <div style={{ position: 'relative', minHeight: '100vh' }}>
-      <Background />
+function useFadeIn() {
+  const ref = useRef(null);
 
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const children = el.querySelectorAll('.fade-in');
+    children.forEach((child) => observer.observe(child));
+
+    return () => observer.disconnect();
+  }, []);
+
+  return ref;
+}
+
+export default function App() {
+  const mainRef = useFadeIn();
+
+  return (
+    <div ref={mainRef}>
       {/* NAV */}
       <nav>
         <div className="nav-logo">TL</div>
         <ul className="nav-links">
-          <li><a href="#about">Skills</a></li>
+          <li><a href="#about">About</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#experience">Experience</a></li>
           <li><a href="#education">Education</a></li>
@@ -135,56 +158,61 @@ export default function App() {
         </ul>
       </nav>
 
-      {/* HERO */}
-      <section id="hero" style={{ padding: 0, maxWidth: 'none' }}>
-        <div className="hero-content">
-          <div className="hero-tag">Active Security Clearance · Open to Work</div>
-          <h1 className="hero-name">Taylor Lim</h1>
-          <p className="hero-tagline">AI Engineer. ML Builder. Beating the Market.</p>
-          <p className="hero-sub">Senior Software Engineer specializing in AI agents, LLM systems, and production ML — from federal cloud infra to self-funded AI startups.</p>
-          <div className="hero-badges">
-            <span className="badge">LangChain + RAG</span>
-            <span className="badge">MCP Orchestration</span>
-            <span className="badge">Production ML Models</span>
-            <span className="badge">AWS GovCloud</span>
+      {/* HERO BENTO */}
+      <section className="hero-bento" style={{ padding: '80px 48px 0', maxWidth: 1200 }}>
+        <div className="hero-grid">
+          <div className="bento-card hero-name-card fade-in">
+            <div className="hero-label">AI Engineer / ML Builder</div>
+            <h1 className="hero-name">Taylor Lim</h1>
+            <p className="hero-tagline">
+              Senior engineer specializing in <strong>AI agents</strong>, <strong>production ML</strong>, and <strong>LLM systems</strong> — from federal cloud infra to self-funded AI startups.
+            </p>
           </div>
-          <div className="hero-ctas">
-            <a href="#projects" className="btn-primary">See My Work</a>
-            <a href="mailto:tayjlim@gmail.com" className="btn-outline">Get in Touch</a>
+
+          <div className="bento-card stat-card fade-in">
+            <div className="stat-value">+30%</div>
+            <div className="stat-label">NFL Model ROI</div>
+          </div>
+
+          <div className="bento-card stat-card fade-in">
+            <div className="stat-value">22+</div>
+            <div className="stat-label">Sportsbooks Beaten</div>
+          </div>
+
+          <div className="bento-card stat-card fade-in">
+            <div className="stat-value">3</div>
+            <div className="stat-label">Sports Modeled</div>
+          </div>
+
+          <div className="bento-card clearance-card fade-in">
+            <div>
+              <div className="clearance-dot" />
+            </div>
+            <div>
+              <div className="clearance-text">Active Security Clearance</div>
+              <div className="clearance-sub">Federal — Accenture / IRS</div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* STAT STRIP */}
-      <div className="stat-strip">
-        <div className="stat">
-          <div className="stat-number">+30%</div>
-          <div className="stat-label">NFL Model ROI</div>
-        </div>
-        <div className="stat">
-          <div className="stat-number">22+</div>
-          <div className="stat-label">Sportsbooks Beaten</div>
-        </div>
-        <div className="stat">
-          <div className="stat-number">60+</div>
-          <div className="stat-label">Live Sportsbooks</div>
-        </div>
-        <div className="stat">
-          <div className="stat-number">5+</div>
-          <div className="stat-label">Years Engineering</div>
-        </div>
-      </div>
-
-      {/* SKILLS */}
+      {/* ABOUT + SKILLS */}
       <section id="about">
-        <div className="section-label">What I Work With</div>
-        <h2 className="section-title">Skills & Stack</h2>
-        <div className="skills-grid">
+        <div className="section-label fade-in">About</div>
+        <h2 className="section-title fade-in">Skills & Stack</h2>
+        <div className="about-grid">
+          <div className="bento-card bio-card fade-in">
+            <p>
+              I build <strong>AI-powered products</strong> from zero to production. My work spans founding a profitable ML sports analytics platform, shipping RAG-powered study tools used at top universities, and leading federal cloud infrastructure at scale. I care about <strong>systems that work</strong> — real ROI, real users, real infra.
+            </p>
+          </div>
           {skills.map((s) => (
-            <div key={s.title} className="skill-card">
+            <div key={s.title} className="skill-card fade-in">
               <div className="skill-card-title">{s.title}</div>
               <div className="skill-tags">
-                {s.tags.map((t) => <span key={t} className="skill-tag">{t}</span>)}
+                {s.tags.map((t) => (
+                  <span key={t} className="skill-tag">{t}</span>
+                ))}
               </div>
             </div>
           ))}
@@ -193,22 +221,28 @@ export default function App() {
 
       {/* PROJECTS */}
       <section id="projects">
-        <div className="section-label">What I've Built</div>
-        <h2 className="section-title">Featured Projects</h2>
-        <div className="projects-grid">
+        <div className="section-label fade-in">What I've Built</div>
+        <h2 className="section-title fade-in">Featured Projects</h2>
+        <div className="projects-stack">
           {projects.map((p) => (
-            <div key={p.name} className={`project-card ${p.featured ? 'featured' : ''}`}>
+            <div key={p.name} className="project-card fade-in">
               <div className="project-header">
                 <div className="project-name">{p.name}</div>
-                <a href={p.url} target="_blank" rel="noreferrer" className="project-live">↗ Live</a>
+                <a href={p.url} target="_blank" rel="noreferrer" className="project-link">
+                  {p.url.replace('https://', '')} ↗
+                </a>
               </div>
-              <div className="project-role">{p.role}</div>
+              <div className="project-role">{p.role} · {p.date}</div>
               <p className="project-desc">{p.desc}</p>
               <ul className="project-highlights">
-                {p.highlights.map((h, i) => <li key={i}>{h}</li>)}
+                {p.highlights.map((h, i) => (
+                  <li key={i}>{h}</li>
+                ))}
               </ul>
               <div className="project-tech">
-                {p.tech.map((t) => <span key={t} className="tech-tag">{t}</span>)}
+                {p.tech.map((t) => (
+                  <span key={t} className="tech-tag">{t}</span>
+                ))}
               </div>
             </div>
           ))}
@@ -217,18 +251,18 @@ export default function App() {
 
       {/* EXPERIENCE */}
       <section id="experience">
-        <div className="section-label">Where I've Worked</div>
-        <h2 className="section-title">Experience</h2>
+        <div className="section-label fade-in">Where I've Worked</div>
+        <h2 className="section-title fade-in">Experience</h2>
         <div className="timeline">
           {experience.map((e) => (
-            <div key={e.company} className="timeline-item">
-              <div className="timeline-header">
-                <div className="timeline-company">{e.company}</div>
-                <div className="timeline-role">{e.role}</div>
-                <div className="timeline-date">{e.date}</div>
-              </div>
+            <div key={e.company + e.date} className="timeline-item fade-in">
+              <div className="timeline-date">{e.date}</div>
+              <div className="timeline-company">{e.company}</div>
+              <div className="timeline-role">{e.role}</div>
               <ul className="timeline-bullets">
-                {e.bullets.map((b, i) => <li key={i}>{b}</li>)}
+                {e.bullets.map((b, i) => (
+                  <li key={i}>{b}</li>
+                ))}
               </ul>
             </div>
           ))}
@@ -237,32 +271,34 @@ export default function App() {
 
       {/* EDUCATION */}
       <section id="education">
-        <div className="section-label">Background</div>
-        <h2 className="section-title">Education & Certs</h2>
+        <div className="section-label fade-in">Background</div>
+        <h2 className="section-title fade-in">Education & Certs</h2>
         <div className="edu-grid">
           {education.map((e) => (
-            <div key={e.school} className="edu-card">
+            <div key={e.school} className="edu-card fade-in">
+              <div className="edu-date">{e.date}</div>
               <div className="edu-school">{e.school}</div>
               <div className="edu-degree">{e.degree}</div>
-              <div className="edu-date">{e.date}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* CONTACT */}
-      <section id="contact" style={{ maxWidth: 'none', padding: '100px 40px' }}>
-        <div className="contact-inner">
-          <div className="section-label" style={{ textAlign: 'center' }}>Let's Talk</div>
-          <h2 className="section-title" style={{ marginBottom: '20px' }}>Get In Touch</h2>
-          <p>I'm open to senior engineering roles, especially at AI-first startups. If you're building something ambitious, I'd love to hear about it.</p>
+      <div className="contact-section" id="contact">
+        <div className="section-label fade-in" style={{ textAlign: 'center' }}>Let's Talk</div>
+        <h2 className="section-title fade-in" style={{ textAlign: 'center' }}>Get In Touch</h2>
+        <div className="contact-card fade-in">
+          <p>
+            Open to senior engineering roles at AI-first startups. If you're building something ambitious, I'd love to hear about it.
+          </p>
           <div className="contact-links">
-            <a href="mailto:tayjlim@gmail.com" className="btn-primary">tayjlim@gmail.com</a>
-            <a href="https://github.com/tayjlim" target="_blank" rel="noreferrer" className="btn-outline">GitHub</a>
-            <a href="https://linkedin.com/in/tayjlim" target="_blank" rel="noreferrer" className="btn-outline">LinkedIn</a>
+            <a href="mailto:tayjlim@gmail.com" className="contact-link primary">tayjlim@gmail.com</a>
+            <a href="https://github.com/tayjlim" target="_blank" rel="noreferrer" className="contact-link">GitHub</a>
+            <a href="https://linkedin.com/in/tayjlim" target="_blank" rel="noreferrer" className="contact-link">LinkedIn</a>
           </div>
         </div>
-      </section>
+      </div>
 
       <footer>
         <p>Built by Taylor Lim · {new Date().getFullYear()}</p>
